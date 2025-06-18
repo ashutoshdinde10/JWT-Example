@@ -16,16 +16,16 @@ public class Roles {
 
     private List<String> operations;
 
-    @OneToOne(mappedBy = "userRoles")
-    private Users users;
+//    @OneToOne(mappedBy = "userRoles")
+//    private Users users;
 
     public Roles() {
     }
 
-    public Roles(String roleName, List<String> operations, Users users) {
+    public Roles(String roleName, List<String> operations) {
         this.roleName = roleName;
         this.operations = operations;
-        this.users = users;
+//        this.users = users;
     }
 
     public Long getId() {
@@ -52,11 +52,11 @@ public class Roles {
         this.operations = operations;
     }
 
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
+//    public Users getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(Users users) {
+//        this.users = users;
+//    }
 }

@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class AuthService {
 
@@ -37,7 +39,7 @@ public class AuthService {
         Users user = new Users();
         user.setUserName(request.getUsername());
         user.setUserEmail(request.getUserEmail());
-        user.setUserPassword(new BCryptPasswordEncoder().encode(request.getPassword()));
+        user.setUserPassword("{bcrypt}"+new BCryptPasswordEncoder().encode(request.getPassword()));
         user.setUserRoles(role);
         user.setActive(true);
 
@@ -56,6 +58,9 @@ public class AuthService {
         LoginResponseDTO response = new LoginResponseDTO();
         response.setToken(token);
         response.setRole(user.getUserRoles().getRoleName());
+        response.setEmail(user.getUserEmail());
+        response.setOperations(new ArrayList<>(user.getUserRoles().getOperations()));
+        response.setMessage("Authentication Successful");
         return response;
     }
 }
