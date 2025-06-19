@@ -11,11 +11,13 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
+@Column(nullable = false)
     private String userName;
+    @Column(nullable = false)
     private String userPassword;
 
 //    @Column(unique = true)
+@Column(nullable = false)
     private String userEmail;
 
     private boolean isActive;

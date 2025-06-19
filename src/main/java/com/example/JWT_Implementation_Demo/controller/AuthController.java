@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "Logging in and receiving JWT token",
-    description = "Lo")
+    description = "Users will login using this api and ")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO request) {
         return ResponseEntity.ok(authService.login(request));
     }
