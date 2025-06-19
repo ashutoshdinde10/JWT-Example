@@ -1,7 +1,9 @@
 package com.example.JWT_Implementation_Demo.util;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.Arrays;
 
 public class ValidDomainValidator implements ConstraintValidator<ValidDomain, String> {
@@ -13,11 +15,20 @@ public class ValidDomainValidator implements ConstraintValidator<ValidDomain, St
     }
 
     @Override
-    public boolean isValid(String email, ConstraintValidatorContext context) {
-        if (email == null || email.isEmpty()) {
-            return true;
+    public boolean isValid(String userEmail, ConstraintValidatorContext context) {
+        System.out.println("Validating email: " + userEmail); // Debug
+
+        if (userEmail == null || userEmail.trim().isEmpty()) {
+            return false;
         }
-        String domain = email.substring(email.indexOf("@") + 1);
+
+        int atIndex = userEmail.indexOf("@");
+        if (atIndex == -1 || atIndex == userEmail.length() - 1) {
+            return false;
+        }
+
+        String domain = userEmail.substring(atIndex + 1).toLowerCase();
         return Arrays.asList(allowedDomains).contains(domain);
     }
+
 }

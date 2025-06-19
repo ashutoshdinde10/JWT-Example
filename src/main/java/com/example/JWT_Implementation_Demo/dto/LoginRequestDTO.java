@@ -1,7 +1,10 @@
 package com.example.JWT_Implementation_Demo.dto;
 
 
+import com.example.JWT_Implementation_Demo.util.ValidDomain;
+
 public class LoginRequestDTO {
+    @ValidDomain(allowedDomains = {"coditas.com","coditas.org"},message = "Email Not Valid")
     private String userEmail;
     private String password;
 

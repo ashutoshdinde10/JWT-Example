@@ -15,7 +15,7 @@ public class Users {
     private String userName;
     private String userPassword;
 
-    @ValidDomain(allowedDomains = {"@coditas.com","@coditas.org"},message = "Email Not Valid")
+
     private String userEmail;
     private boolean isActive;
 
