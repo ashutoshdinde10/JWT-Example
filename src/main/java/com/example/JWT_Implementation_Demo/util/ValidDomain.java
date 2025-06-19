@@ -12,7 +12,10 @@ import java.lang.annotation.*;
 @Documented
 public @interface ValidDomain {
     String message() default "Invalid email domain";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
+
     String[] allowedDomains();
 }

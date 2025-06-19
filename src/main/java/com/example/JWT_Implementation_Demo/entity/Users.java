@@ -1,8 +1,6 @@
 package com.example.JWT_Implementation_Demo.entity;
 
-import com.example.JWT_Implementation_Demo.util.ValidDomain;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "Users")
@@ -11,13 +9,14 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-@Column(nullable = false)
+
+    @Column(nullable = false)
     private String userName;
+
     @Column(nullable = false)
     private String userPassword;
 
-//    @Column(unique = true)
-@Column(nullable = false)
+    @Column(nullable = false)
     private String userEmail;
 
     private boolean isActive;
@@ -25,7 +24,6 @@ public class Users {
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Roles userRoles;
-
 
     public Users() {
     }

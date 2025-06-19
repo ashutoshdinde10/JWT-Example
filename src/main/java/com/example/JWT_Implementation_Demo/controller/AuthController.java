@@ -1,7 +1,6 @@
 package com.example.JWT_Implementation_Demo.controller;
 
 
-
 import com.example.JWT_Implementation_Demo.dto.LoginRequestDTO;
 import com.example.JWT_Implementation_Demo.dto.LoginResponseDTO;
 import com.example.JWT_Implementation_Demo.dto.SignupRequest;
@@ -24,15 +23,13 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signup")
-    @Operation(summary = "Registering the User",
-    description = "Users will need to add their  username, userEmail, password, roleName and register themselves")
+    @Operation(summary = "Registering the User", description = "Users will need to add their  username, userEmail, password, roleName and register themselves")
     public ResponseEntity<String> signup(@Valid @RequestBody SignupRequest request) {
         return ResponseEntity.ok(authService.signup(request));
     }
 
     @PostMapping("/login")
-    @Operation(summary = "Logging in and receiving JWT token",
-    description = "Users will login using this api and ")
+    @Operation(summary = "Logging in and receiving JWT token", description = "Users will login using this api and ")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO request) {
         return ResponseEntity.ok(authService.login(request));
     }

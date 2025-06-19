@@ -2,13 +2,13 @@ package com.example.JWT_Implementation_Demo.dto;
 
 import com.example.JWT_Implementation_Demo.util.ValidDomain;
 import jakarta.validation.constraints.Email;
-import org.hibernate.validator.constraints.UniqueElements;
+
 
 public class SignupRequest {
     private String username;
 
     @Email
-    @ValidDomain(allowedDomains = {"coditas.com","coditas.org"},message = "Email Not Valid")
+    @ValidDomain(allowedDomains = {"coditas.com", "coditas.org"}, message = "Email Not Valid")
     private String userEmail;
 
     private String password;

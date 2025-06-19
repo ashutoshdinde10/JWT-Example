@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class  AuthService {
+public class AuthService {
 
     @Autowired
     private UserRepository usersRepository;
@@ -37,14 +37,15 @@ public class  AuthService {
     public String signup(SignupRequest request) {
         Roles role = rolesRepository.findByRoleName(request.getRoleName());
         if (role == null) throw new RuntimeException("Invalid role");
+
         if (usersRepository.existsByUserEmail(request.getUserEmail().toLowerCase())) {
-            throw new AppException("Email already exists","EMAIL_ALREADY_EXIST", HttpStatus.CONFLICT);
+            throw new AppException("Email already exists", "EMAIL_ALREADY_EXIST", HttpStatus.CONFLICT);
         }
 
         Users user = new Users();
         user.setUserName(request.getUsername());
         user.setUserEmail(request.getUserEmail().toLowerCase());
-        user.setUserPassword("{bcrypt}"+new BCryptPasswordEncoder().encode(request.getPassword()));
+        user.setUserPassword("{bcrypt}" + new BCryptPasswordEncoder().encode(request.getPassword()));
         user.setUserRoles(role);
         user.setActive(true);
 
@@ -53,9 +54,7 @@ public class  AuthService {
     }
 
     public LoginResponseDTO login(LoginRequestDTO request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUserEmail(), request.getPassword())
-        );
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserEmail(), request.getPassword()));
 
         Users user = usersRepository.findByUserEmail(request.getUserEmail());
         String token = jwtUtil.generateToken(user.getUserEmail());

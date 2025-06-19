@@ -2,10 +2,13 @@ package com.example.JWT_Implementation_Demo.dto;
 
 
 import com.example.JWT_Implementation_Demo.util.ValidDomain;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginRequestDTO {
-    @ValidDomain(allowedDomains = {"coditas.com","coditas.org"},message = "Email Not Valid")
+    @ValidDomain(allowedDomains = {"coditas.com", "coditas.org"}, message = "Email Not Valid")
     private String userEmail;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public LoginRequestDTO() {
