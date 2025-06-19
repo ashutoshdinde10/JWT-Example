@@ -46,9 +46,9 @@ public ResponseEntity<Map<String, Object>> handleValidationExceptions(Authentica
     Map<String, Object> errors = new HashMap<>();
 
     errors.put("error",ex.getMessage());
-    errors.put("code",ex.getCause());
+//    errors.put("code",ex.getCause());
 
-    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(errors, HttpStatus.UNAUTHORIZED);
 }
 
 

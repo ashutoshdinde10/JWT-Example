@@ -15,7 +15,7 @@ public class Users {
     private String userName;
     private String userPassword;
 
-
+    @Column(unique = true)
     private String userEmail;
     private boolean isActive;
 
