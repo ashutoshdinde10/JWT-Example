@@ -1,6 +1,7 @@
 package com.example.JWT_Implementation_Demo.exception;
 
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -24,6 +25,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(AppException.class)
     public ResponseEntity<Map<String,Object>> appException(AppException ex){
         Map<String,Object> exceptionResponse = new HashMap<>();

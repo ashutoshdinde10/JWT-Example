@@ -16,8 +16,6 @@ public class Roles {
 
     private List<String> operations;
 
-//    @OneToOne(mappedBy = "userRoles")
-//    private Users users;
 
     public Roles() {
     }

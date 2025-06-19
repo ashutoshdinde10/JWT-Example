@@ -15,12 +15,13 @@ public class Users {
     private String userName;
     private String userPassword;
 
-    @Column(unique = true)
+//    @Column(unique = true)
     private String userEmail;
+
     private boolean isActive;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
     private Roles userRoles;
 
 

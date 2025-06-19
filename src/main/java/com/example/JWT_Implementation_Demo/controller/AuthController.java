@@ -33,7 +33,7 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Logging in and receiving JWT token",
     description = "Lo")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO request) {
         return ResponseEntity.ok(authService.login(request));
     }
 }
