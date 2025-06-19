@@ -4,6 +4,7 @@ package com.example.JWT_Implementation_Demo.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,8 +18,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, Object> errors = new HashMap<>();
-//        ex.getBindingResult().getFieldErrors().forEach(error ->
-//                errors.put(error.getField(), error.getDefaultMessage()));
 
         errors.put("error",ex.getBindingResult().getFieldError().getDefaultMessage());
         errors.put("code",ex.getStatusCode());
@@ -42,6 +41,15 @@ public class GlobalExceptionHandler {
 
 //        return new ResponseEntity<>(exceptionResponse,HttpStatus.UNAUTHORIZED);
 //    }
+@ExceptionHandler(AuthenticationException.class)
+public ResponseEntity<Map<String, Object>> handleValidationExceptions(AuthenticationException ex) {
+    Map<String, Object> errors = new HashMap<>();
+
+    errors.put("error",ex.getMessage());
+    errors.put("code",ex.getCause());
+
+    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+}
 
 
 }
