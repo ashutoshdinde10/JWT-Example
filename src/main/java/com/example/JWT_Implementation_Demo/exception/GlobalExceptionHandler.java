@@ -27,11 +27,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<Map<String, Object>> appException(AppException ex) {
-        Map<String, Object> exceptionResponse = new HashMap<>();
-        exceptionResponse.put("error", ex.getMessage());
-        exceptionResponse.put("code", ex.getErrorCode());
+        Map<String, Object> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        errors.put("code", ex.getErrorCode());
 
-        return new ResponseEntity<>(exceptionResponse, ex.getStatusCode());
+        return new ResponseEntity<>(errors, ex.getStatusCode());
     }
 
     @ExceptionHandler(AuthenticationException.class)
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, Object>> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
-        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> errors = new HashMap<>();
 
         String detailedMessage = ex.getMostSpecificCause().getMessage();
 
@@ -59,15 +59,15 @@ public class GlobalExceptionHandler {
             userMessage = "Invalid request: data integrity violated.";
         }
 
-        response.put("error", userMessage);
-        response.put("code", HttpStatus.CONFLICT.value());
+        errors.put("error", userMessage);
+        errors.put("code", HttpStatus.CONFLICT.value());
 
-        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleDataIntegrityViolation(IllegalArgumentException ex) {
-        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> errors = new HashMap<>();
 
         String detailedMessage = ex.getMessage();
 
@@ -78,10 +78,27 @@ public class GlobalExceptionHandler {
             userMessage = "Invalid request: data integrity violated.";
         }
 
-        response.put("error", userMessage);
-        response.put("code", HttpStatus.CONFLICT.value());
+        errors.put("error", userMessage);
+        errors.put("code", HttpStatus.CONFLICT.value());
 
-        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, Object>> handleAuthenticationException(RuntimeException ex) {
+        Map<String, Object> errors = new HashMap<>();
+        String detailedMessage = ex.getMessage();
+
+        String userMessage;
+        if (detailedMessage.contains("Invalid role")) {
+            userMessage = "Invalid Role";
+        } else {
+            userMessage = "Invalid request: data integrity violated.";
+        }
+
+        errors.put("error", userMessage);
+        errors.put("code", HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 
 
